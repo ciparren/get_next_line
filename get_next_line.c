@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:43 by cintia            #+#    #+#             */
-/*   Updated: 2026/02/22 11:26:03 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/02/22 16:39:18 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,57 @@
 // asegurarse de que funciona bien cuando lee de archivo y cuando lee de input normal
 // la linea devuelta debe incluir el \n menos cuando se ha llegado al final del archivo
 // 
+char *extract_line(char *storage)
+{	
+	int	i;
+	char	*str;
+	
+	i = 0;
+	if(!storage || storage == '\0')
+		return (NULL);
+	while(storage[i] && storage[i] != '\n')
+		i++;
+	if(storage[i] == '\n')
+		i++;
+	str = ft_substr(storage, 0, i);
+	return (str);
+}
 
+char *clean_storage(char *storage)
+{
+	int	i;
+	char	*tmp;
+
+	tmp = malloc(sizeof(BUFFER_SIZE) + 1);
+	if(!storage)
+		return (NULL);
+	i = 0;
+	while(storage[i] && storage[i] != '\n')
+		i++;
+	if(storage[i] == '\0')
+	{
+		free(storage);
+		return (NULL);
+	}
+	else if(storage[i] == '\n')
+	{
+		i++;
+		tmp = ft_substr(storage, i, ft_strlen(storage));
+		free(storage);
+	}
+	return (tmp);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*storage; // Aquí guardaremos lo que sobre después del \n
 	char		*line;
 
-	// 1. Protección contra errores básicos
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
-	// 2. Leer del archivo y acumular el texto en 'storage'
 	storage = read_and_store(fd, storage);
 	if (!storage)
 		return (NULL);
-
 	// 3. Extraer la línea exacta que vamos a devolver
 	line = extract_line(storage);
 

@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:46 by cintia            #+#    #+#             */
-/*   Updated: 2026/02/22 16:08:03 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/02/22 16:39:54 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // todas las funciones de ayuda
 // añadir esta opcion a la llamada de tu compilador: -D BUFFER_SIZE=n
 // no se puede usar LIBFT
-// 
+
 
 int     ft_strlen(const char *str)
 {
