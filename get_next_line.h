@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:38 by cintia            #+#    #+#             */
-/*   Updated: 2026/02/22 16:08:00 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/02/22 16:44:10 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 char    *get_next_line(int fd);
 
 // utils
-int     ft_strlen(const char *str);
+int     strl(const char *str);
 int     search_n(char *str);
-char    *ft_strjoin(char *str1, char *str2);
-char    *ft_substr(char const *s, unsigned int start, size_t len);
+char    *strj(char *str1, char *str2);
+char    *subs(char const *s, unsigned int start, size_t len);
 
 
 #endif

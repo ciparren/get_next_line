@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:43 by cintia            #+#    #+#             */
-/*   Updated: 2026/02/22 16:39:18 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/02/22 16:45:15 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char *extract_line(char *storage)
 		i++;
 	if(storage[i] == '\n')
 		i++;
-	str = ft_substr(storage, 0, i);
+	str = subs(storage, 0, i);
 	return (str);
 }
 
@@ -37,7 +37,6 @@ char *clean_storage(char *storage)
 	int	i;
 	char	*tmp;
 
-	tmp = malloc(sizeof(BUFFER_SIZE) + 1);
 	if(!storage)
 		return (NULL);
 	i = 0;
@@ -51,7 +50,7 @@ char *clean_storage(char *storage)
 	else if(storage[i] == '\n')
 	{
 		i++;
-		tmp = ft_substr(storage, i, ft_strlen(storage));
+		tmp = subs(storage, i, strl(storage));
 		free(storage);
 	}
 	return (tmp);
@@ -97,7 +96,7 @@ char	*read_and_store(int fd, char *storage)
 			return (NULL);
 		}
 		buffer[bytes_read] = '\0'; // Terminamos el string leído
-		storage = joinstr(storage, buffer); // Lo unimos a lo que ya teníamos
+		storage = strj(storage, buffer); // Lo unimos a lo que ya teníamos
 	}
 	free(buffer); // Ya no necesitamos el buffer temporal
 	return (storage);
