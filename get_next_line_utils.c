@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:46 by cintia            #+#    #+#             */
-/*   Updated: 2026/02/22 16:39:54 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/03/13 17:08:34 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ char    *ft_strjoin(char *str1, char *str2)
     char	*res;
 	int		i;
 	int		j;
-
+	
 	if (!str1)
 	{
 		str1 = malloc(1);
 		if (!str1)
 			return (NULL);
-		str1 = '\0';
+		str1[0] = '\0';  // Así sí, asignamos el primer carácter como terminador
 	}
 	if (!str2)
 		return (NULL);
-	res = malloc(sizeof(char) * (long_str(str1) + long_str(str2) + 1));
+	res = malloc(sizeof(char) * (ft_strlen(str1) + ft_strlen(str2) + 1));
 	if (!res)
 		return (NULL);	
 	i = -1;
@@ -70,10 +70,8 @@ char    *ft_strjoin(char *str1, char *str2)
 	while (str2[j])
 		res[i++] = str2[j++];
 	res[i] = '\0';
-
-    // entender bien por qué debo hacer este free
-	free(str1);
-
+	if(str1)
+		free(str1);
 	return (res);
 }
 char    *ft_substr(char const *s, unsigned int start, size_t len)
