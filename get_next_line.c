@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:43 by cintia            #+#    #+#             */
-/*   Updated: 2026/04/03 11:18:22 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/04/03 12:22:09 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ char	*extract_line(char *storage)
 	i = 0;
 	if (!storage || !*storage)
 		return (NULL);
-	while (storage[i] && storage[i] != '\n')
+	while (storage[i] && storage[i] != SEPARATOR)
 		i++;
-	if (storage[i] == '\n')
+	if (storage[i] == SEPARATOR)
 		i++;
 	str = ft_substr(storage, 0, i);
 	return (str);
@@ -68,7 +68,7 @@ char	*clean_storage(char *storage)
 	if (!storage)
 		return (NULL);
 	i = 0;
-	while (storage[i] && storage[i] != '\n')
+	while (storage[i] && storage[i] != SEPARATOR)
 		i++;
 	if (storage[i] == '\0')
 	{

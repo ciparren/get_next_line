@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:46 by cintia            #+#    #+#             */
-/*   Updated: 2026/04/03 11:00:56 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/04/03 12:23:00 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	search_n(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '\n')
+		if (str[i] == SEPARATOR)
 			return (1);
 		i++;
 	}
