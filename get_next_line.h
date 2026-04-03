@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:38 by cintia            #+#    #+#             */
-/*   Updated: 2026/04/03 12:23:45 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/04/03 13:00:59 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-# define SEPARATOR '\n'
+# define SEPARATOR '|'
 
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
