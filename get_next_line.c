@@ -6,93 +6,90 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:43 by cintia            #+#    #+#             */
-/*   Updated: 2026/03/13 17:16:23 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/04/03 11:18:22 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_and_store(int fd, char *storage)
+static char	*read_loop(int fd, char *storage, char *buffer)
 {
-	char	*buffer;
-	int		bytes_read;
-	int		tmp;
+	int	bytes_read;
 
-	// Reservamos memoria para el buffer temporal (+1 para el '\0')
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
 	bytes_read = 1;
-	// El bucle sigue mientras no haya un '\n' y no hayamos llegado al final (EOF)
-	while (!search_n(storage) && bytes_read != 0)
+	while (!search_n(storage) && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1) // Error de lectura
-		{
-			free(buffer);
-			if(storage)
-				free(storage); // Evitamos leaks si hay error
+		if (bytes_read <= 0)
+			break ;
+		buffer[bytes_read] = '\0';
+		storage = ft_strjoin(storage, buffer);
+		if (!storage)
 			return (NULL);
-		}
-		buffer[bytes_read] = '\0'; // Terminamos el string leído
-        tmp = ft_strjoin(storage, buffer);
-		if (!tmp)  // Si ft_strjoin falla
-        {
-            free(buffer);
-            if (storage)
-                free(storage);
-            return (NULL);
-        }
-        storage = tmp;
 	}
-	free(buffer); // Ya no necesitamos el buffer temporal
+	if (bytes_read == -1)
+		return (free(storage), NULL);
 	return (storage);
 }
 
-// asegurarse de que funciona bien cuando lee de archivo y cuando lee de input normal
-// la linea devuelta debe incluir el \n menos cuando se ha llegado al final del archivo
-// 
-char *extract_line(char *storage)
-{	
-	int	i;
+char	*read_and_store(int fd, char *storage)
+{
+	char	*buffer;
+
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (free(storage), NULL);
+	storage = read_loop(fd, storage, buffer);
+	free(buffer);
+	return (storage);
+}
+
+char	*extract_line(char *storage)
+{
+	int		i;
 	char	*str;
-	
+
 	i = 0;
-	if(!storage || !*storage)
+	if (!storage || !*storage)
 		return (NULL);
-	while(storage[i] && storage[i] != '\n')
+	while (storage[i] && storage[i] != '\n')
 		i++;
-	if(storage[i] == '\n')
+	if (storage[i] == '\n')
 		i++;
 	str = ft_substr(storage, 0, i);
 	return (str);
 }
 
-char *clean_storage(char *storage)
+char	*clean_storage(char *storage)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
-	if(!storage)
+	if (!storage)
 		return (NULL);
 	i = 0;
-	while(storage[i] && storage[i] != '\n')
+	while (storage[i] && storage[i] != '\n')
 		i++;
-	if(storage[i] == '\0')
+	if (storage[i] == '\0')
 	{
 		free(storage);
 		return (NULL);
 	}
 	i++;
-	tmp = ft_substr(storage, i, ft_strlen(storage));
+	tmp = ft_substr(storage, i, ft_strlen(storage + i));
 	free(storage);
+	if (!tmp || !*tmp)
+	{
+		free(tmp);
+		return (NULL);
+	}
 	return (tmp);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage; // Aquí guardaremos lo que sobre después del \n
 	char		*line;
+	static char	*storage;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -100,9 +97,12 @@ char	*get_next_line(int fd)
 	if (!storage)
 		return (NULL);
 	line = extract_line(storage);
+	if (!line)
+	{
+		free(storage);
+		storage = NULL;
+		return (NULL);
+	}
 	storage = clean_storage(storage);
-
 	return (line);
 }
-
-

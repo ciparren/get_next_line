@@ -6,7 +6,7 @@
 /*   By: ciparren <ciparren@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:16:38 by cintia            #+#    #+#             */
-/*   Updated: 2026/03/13 17:16:25 by ciparren         ###   ########.fr       */
+/*   Updated: 2026/04/03 11:08:41 by ciparren         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,13 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+#  define SEPARATOR '\n' 
 # endif
 
-// SÓLO SE PUEDEN USAR read, malloc y free
-
-// Medir la longitud de un string.
-// Buscar un salto de línea (\n) dentro de un string.
-// Unir dos strings (similar a strjoin) para ir acumulando lo que lees.
-// Extraer una parte de un string (para sacar la línea final o guardar el sobrante).
-
-
-
-
-char    *get_next_line(int fd);
-
-// utils
-int     ft_strlen(const char *str);
-int     search_n(char *str);
-char    *ft_strjoin(char *str1, char *str2);
-char    *ft_substr(char const *s, unsigned int start, size_t len);
-
+char	*get_next_line(int fd);
+int		ft_strlen(const char *str);
+int		search_n(char *str);
+char	*ft_strjoin(char *str1, char *str2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif
